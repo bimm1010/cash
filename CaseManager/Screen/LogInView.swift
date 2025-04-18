@@ -9,8 +9,8 @@ import SwiftUI
 import FirebaseAuth
 
 struct LogInView: View {
-    @State private var userNameLogin: String = ""
-    @State private var passwordLogin: String = ""
+    @State private var userNameLogin: String = "test1@gmail.com"
+    @State private var passwordLogin: String = "123456"
     @Binding var path: NavigationPath
     @State private var messageNotification: String = ""
     @State private var isShowMessageAlert: Bool = false
