@@ -23,4 +23,7 @@ extension Color {
 
 struct GlobalConfig {
     static var colorTheme: String = "63B5AF"
+    static var colorBackgroundTheme: String = "#ecf0f1"
+    static var colorWhite: String = "#ffffff"
+    static var GlobalPadding: CGFloat = 15
 }
