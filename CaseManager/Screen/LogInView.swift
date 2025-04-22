@@ -107,29 +107,36 @@ struct ButtonSubmitLoginUser: View {
     @Binding var path: NavigationPath
     @Binding var messageError: String
     @Binding var showAlertMessage: Bool
+    @State private var isEnable: Bool = true
     
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
             .fill(Color(hex: GlobalConfig.colorTheme))
             .frame(width: 250, height: 50)
             .shadow(color: Color(hex: GlobalConfig.colorTheme).opacity(0.6), radius: 15, x: 0, y: 15)
-            .onTapGesture {
-                Task {
-                    await checkAccount()
-                }
-            }
             .padding(.vertical, 25)
             .overlay(
                 Text("Let's Go")
                     .font(.custom("Inter_14pt-Regular", size: 18))
                     .foregroundColor(.white)
                     .padding(.all))
+            .onTapGesture {
+                if isEnable {
+                    Task {
+                        isEnable = false
+                        await checkAccount()
+                    }
+                }
+                
+            }
     }
     func checkAccount() async {
         if !userNameLoginData.isEmpty && !passwordLoginData.isEmpty {
             do {
                 let _ = try await Auth.auth().signIn(withEmail: userNameLoginData, password: passwordLoginData)
                 messageError = "login success"
+                userNameLoginData = ""
+                passwordLoginData = ""
                 path.append(Screen.home)
             }
             catch {

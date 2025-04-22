@@ -46,6 +46,7 @@ struct HomeScreen: View {
             .tag(3)
         }
         .tint(.green)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -180,8 +181,8 @@ struct DayViewSelect: View {
     var body: some View {
         HStack {
             Text("Day")
-                .font(.system(size: 16 ,weight: .medium))
-                .foregroundStyle(.black)
+                .font(.system(size: 20))
+            Spacer()
             Button {
                 currentDay = Calendar.current
                     .date(
@@ -191,15 +192,16 @@ struct DayViewSelect: View {
                     ) ?? currentDay
             } label: {
                 Image(systemName: "chevron.left")
-                                    .foregroundColor(.black)
+                    .foregroundColor(.black).font(.system(size: 20))
             }
             
-            Text(dateFormatter.string(from: currentDay)).font(.system(size: 16, weight: .medium))
+            Text(dateFormatter.string(from: currentDay)).font(.system(size: 25, weight: .medium))
                 .foregroundColor(.black)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(Color.green.opacity(0.1)) // Nền xanh nhạt
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 250, height: 40)
 
             Button {
                 currentDay = Calendar.current
@@ -210,7 +212,7 @@ struct DayViewSelect: View {
                     ) ?? currentDay
             } label: {
                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.black).font(.system(size: 20))
             }
 
             
@@ -251,7 +253,7 @@ struct NoteMoneyOut: View {
     var body: some View {
         HStack {
             Text("Ghi chú").font(.system(size: 20))
-            TextField("chưa nhập vào", text: .constant("")).font(.system(size: 30))
+            TextField("chưa nhập vào", text: .constant("")).font(.system(size: 18))
         }.padding(
             EdgeInsets(
                 top: GlobalConfig.GlobalPadding,
