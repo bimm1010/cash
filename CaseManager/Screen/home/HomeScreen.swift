@@ -11,12 +11,14 @@ struct HomeScreen: View {
     @State private var selectedTab: Int = 0
     @State private var changeColorButton: Bool = false
     @State private var currentDate: Date = Date()
+    @State private var checkItemSAme: Bool = false
     var body: some View {
         TabView(selection: $selectedTab) {
             VStack {
                 InputViewCash(
                     changeColorButton: $changeColorButton,
-                    currentDay: $currentDate
+                    currentDay: $currentDate,
+                    checkItemSAme: $checkItemSAme
                 )
             }
             .tabItem {
@@ -54,6 +56,7 @@ struct HomeScreen: View {
 struct InputViewCash: View {
     @Binding var changeColorButton: Bool
     @Binding var currentDay: Date
+    @Binding var checkItemSAme: Bool
     var body: some View {
         VStack {
             ButtonHeader(changeColorButton: $changeColorButton)
@@ -65,16 +68,7 @@ struct InputViewCash: View {
             Divider()
             MoneyOutView()
             Divider()
-            VStack {
-                Text("Danh mục").font(.system(size: 20))
-            }.frame(maxWidth: .infinity, alignment: .leading).padding(
-                EdgeInsets(
-                    top: GlobalConfig.GlobalPadding,
-                    leading: GlobalConfig.GlobalPadding,
-                    bottom: GlobalConfig.GlobalPadding,
-                    trailing: GlobalConfig.GlobalPadding
-                )
-            )
+            ListSelectOptions(selectedOption: $checkItemSAme )
             Spacer()
         }
     }
@@ -99,12 +93,8 @@ struct MenuCash: View {
 }
 
 
-#Preview {
-    HomeScreen()
-}
 
-            
-            // Nhập vào screen
+    //Tag 0
 struct ButtonHeader: View {
     @Binding var changeColorButton: Bool
     var body: some View {
@@ -202,7 +192,7 @@ struct DayViewSelect: View {
                 .background(Color.green.opacity(0.1)) // Nền xanh nhạt
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .frame(width: 250, height: 40)
-
+            
             Button {
                 currentDay = Calendar.current
                     .date(
@@ -212,9 +202,9 @@ struct DayViewSelect: View {
                     ) ?? currentDay
             } label: {
                 Image(systemName: "chevron.right")
-                                    .foregroundColor(.black).font(.system(size: 20))
+                    .foregroundColor(.black).font(.system(size: 20))
             }
-
+            
             
             
         }.padding(
@@ -264,4 +254,66 @@ struct NoteMoneyOut: View {
         )
     }
 }
+
+
+struct ListSelectOptions: View {
+    @Binding var selectedOption: Bool
+    @State private var selectCategory: Category?
+    @State private var getNameCategory: String = "" // tạm thời đặt ở đây
+    let colunms = [
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10)
+    ]
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Danh mục").font(.system(size: 20))
+            ScrollView {
+                LazyVGrid(columns: colunms, spacing: 10) {
+                    ForEach(categories) { category in
+                        Button {
+                            handleCategorySelected(category: category)
+                            getNameCategory = category.name
+                            print(getNameCategory)
+                        } label: {
+                            VStack(spacing: 5) {
+                                Image(category.image)
+                                    .resizable()
+                                    .frame(width: 40, height: 30)
+                                    .foregroundStyle(category.color)
+                                    .padding(.vertical, 5)
+                                Text(category.name)
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(.black)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(
+                                        Color.gray,
+                                        lineWidth: selectCategory?.id == category.id ? 4 : 1)
+                            )
+                        }
+
+                    }
+                }
+            }
+        }.frame(maxWidth: .infinity, alignment: .leading).padding(
+            EdgeInsets(
+                top: GlobalConfig.GlobalPadding,
+                leading: GlobalConfig.GlobalPadding,
+                bottom: GlobalConfig.GlobalPadding,
+                trailing: GlobalConfig.GlobalPadding
+            )
+        )
+    }
+    private func handleCategorySelected(category: Category){
+        if !(selectCategory?.id == category.id) {
+            selectCategory = category
+        }
+    }
+    
+    
+}
     //-------------------------------------//
+
