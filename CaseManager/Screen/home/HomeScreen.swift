@@ -259,7 +259,6 @@ struct NoteMoneyOut: View {
 struct ListSelectOptions: View {
     @Binding var selectedOption: Bool
     @State private var selectCategory: Category?
-    @State private var getNameCategory: String = "" // tạm thời đặt ở đây
     let colunms = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10),
@@ -273,8 +272,7 @@ struct ListSelectOptions: View {
                     ForEach(categories) { category in
                         Button {
                             handleCategorySelected(category: category)
-                            getNameCategory = category.name
-                            print(getNameCategory)
+                            print(category.name)
                         } label: {
                             VStack(spacing: 5) {
                                 Image(category.image)
@@ -297,6 +295,8 @@ struct ListSelectOptions: View {
 
                     }
                 }
+            }.onAppear{
+                selectCategory = .init(id: 0, name: "Ăn Uống", image: "eat", color: .orange)
             }
         }.frame(maxWidth: .infinity, alignment: .leading).padding(
             EdgeInsets(
@@ -312,8 +312,6 @@ struct ListSelectOptions: View {
             selectCategory = category
         }
     }
-    
-    
 }
     //-------------------------------------//
 

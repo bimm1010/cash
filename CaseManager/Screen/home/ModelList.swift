@@ -10,7 +10,7 @@ import SwiftUICore
 
 
 struct Category: Identifiable {
-    let id = UUID()
+    let id: Int
     let name: String
     let image: String
     let color: Color
@@ -18,16 +18,16 @@ struct Category: Identifiable {
 
 
 let categories: [Category] = [
-    .init(name: "Ăn Uống", image: "eat", color: .orange),
-    .init(name: "Chi tiêu", image: "wash", color: .green),
-    .init(name: "Quần áo", image: "Clothes", color: .purple),
-    .init(name: "Mỹ Phẩm", image: "Makeup", color: .pink),
-    .init(name: "Giao Lưu", image: "Playmoney", color: .yellow),
-    .init(name: "Y tế", image: "pharmacy", color: .green),
-    .init(name: "Giáo dục", image: "Study", color: .red),
-    .init(name: "Tiền Điện", image: "Electricmoney", color: .blue),
-    .init(name: "Đi lại", image: "Goto", color: .brown),
-    .init(name: "Liên lạc", image: "Phonemoney", color: .black),
-    .init(name: "Tiền nhà", image: "Homemoney", color: .orange),
-    .init(name: "Internet", image: "Internetmoney", color: .pink),
+    .init(id: 0, name: "Ăn Uống", image: "eat", color: .orange),
+    .init(id: 1, name: "Chi tiêu", image: "wash", color: .green),
+    .init(id: 2, name: "Quần áo", image: "Clothes", color: .purple),
+    .init(id: 3,name: "Mỹ Phẩm", image: "Makeup", color: .pink),
+    .init(id: 4,name: "Giao Lưu", image: "Playmoney", color: .yellow),
+    .init(id: 5,name: "Y tế", image: "pharmacy", color: .green),
+    .init(id: 6,name: "Giáo dục", image: "Study", color: .red),
+    .init(id: 7,name: "Tiền Điện", image: "Electricmoney", color: .blue),
+    .init(id: 8,name: "Đi lại", image: "Goto", color: .brown),
+    .init(id: 9,name: "Liên lạc", image: "Phonemoney", color: .black),
+    .init(id: 10,name: "Tiền nhà", image: "Homemoney", color: .orange),
+    .init(id: 11,name: "Internet", image: "Internetmoney", color: .pink),
     ]
